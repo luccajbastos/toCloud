@@ -1,0 +1,19 @@
+{% extends 'main/base.html' %}
+{% block title %} Create Team {% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container">
+    <form method="post" class="mt-4">
+        {% csrf_token %}
+        <div class="mb-3">
+            <h2 class="h4">Nome do time</h2>
+            {{ form.name }}
+        </div>
+        <div class="mb-3">
+            <h2 class="h4">Descrição do time</h2>
+            {{ form.description }}
+        </div>
+        <button type="submit" class="btn btn-success">Criar time</button>
+    </form>
+</div>
+{% endblock %}

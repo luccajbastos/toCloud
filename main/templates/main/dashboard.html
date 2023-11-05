@@ -1,0 +1,43 @@
+{% extends 'main/base.html' %}
+{% block title %} toCloud | Dashboard {% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+
+
+        {% for pj in project %}
+        {% if pj.team in user_teams or pj.author == user.username%}
+        <div class="col-md-12">
+            <div class="card mt-3">
+                <div class="card-header">
+                    <strong>Projeto</strong> {{ pj.project_name }} | <strong>Responsável:</strong> {{ pj.team}}
+                </div>
+                <div class="card-body">
+                    <div class="project-section">
+                        <h4>Detalhes</h4>
+                        <p>{{ pj.features_and_functionality }}</p>
+                    </div>
+
+                    <div class="project-section">
+                        <h4>Público Alvo</h4>
+                        <p>{{ pj.target_audience }}</p>
+                    </div>
+
+                    <div class="text-right mt-2">
+                        <a class="btn btn-primary" href="/project-detail/{{pj.project_name}}">Ver detalhes</a>
+                    </div>
+                </div>
+                <div class="card-footer text-muted">
+                    {{ pj.created_at }}
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <h2 class="m-2">Você ainda não tem projetos</h2>
+        {% endif %}
+        {% empty %}
+        <h2 class="m-2">Você ainda não tem projetos</h2>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

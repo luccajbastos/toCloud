@@ -1,0 +1,59 @@
+{% extends 'main/base.html' %}
+{% block title %} Times {% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="btn btn-success" href="/create-team">Criar time</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        {% for teams in team %}
+        <div class="col-md-6 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ teams.name }}</h5>
+                    <p class="card-text">Gerente: {{ teams.author }} | {{ teams.description }}</p>
+                    <strong>Membros:</strong>
+                    <ul>
+                        {% for member in teams.members.all %}
+                        <li>{{ member }}</li>
+                        {% empty %}
+                        <p>- Não há membros.</p>
+                        {% endfor %}
+                    </ul>
+                </div>  
+                {% if user.username == teams.author %}
+                <div class="card-footer">
+                    <form method="post" class="d-flex m-2 text-center justify-content-center">
+                        {% csrf_token %}
+                        <div class="m-2">
+                            <button type="submit" class="btn btn-danger" name="team-name"
+                                value="{{ teams.name }}">
+                                Deletar time
+                            </button>
+                        </div>
+                        <div class="m-2">
+                            <a class="btn btn-secondary" href="/change-members/{{teams.name}}">Gerenciar membros</a>
+                        </div>
+                        <div class="m-2">
+                            <a class="btn btn-success" href="/change-team/{{teams.name}}">Gerenciar time</a>
+                        </div>
+                    </form>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-md-12">
+            <p>Não há times criados</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'main/base.html' %}
+{% block title %} toCloud | Criar projeto {% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form method="post" class="bg-white p-4 rounded shadow">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <h2>Informações do projeto</h2>
+                    {{ form.project_name|as_crispy_field }}
+                    {{ form.software_objective|as_crispy_field }}
+                </div>
+
+                <div class="mb-3">
+                    <h2>Detalhes do projeto</h2>
+                    {{ form.features_and_functionality|as_crispy_field }}
+                    {{ form.target_audience|as_crispy_field }}
+                    {{ form.technical_requirements|as_crispy_field }}
+                    {{ form.target_platforms|as_crispy_field }}
+                </div>
+
+                <div class="mb-3">
+                    <h2>Escopo e datas</h2>
+                    {{ form.initial_scope|as_crispy_field }}
+                    {{ form.future_scope|as_crispy_field }}
+                    {{ form.start_date|as_crispy_field }}
+                    {{ form.desired_completion_date|as_crispy_field }}
+                </div>
+
+                <div class="mb-3">
+                    <h2>Orçamento e time</h2>
+                    {{ form.budget|as_crispy_field }}
+                    {{ form.team|as_crispy_field }}
+                </div>
+
+                <div class="mb-3">
+                    <h2>Observações</h2>
+                    {{ form.additional_notes|as_crispy_field }}
+                </div>
+
+                <button type="submit" class="btn btn-success mt-3">Criar projeto</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

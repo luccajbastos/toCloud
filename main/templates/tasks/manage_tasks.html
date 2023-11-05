@@ -1,0 +1,68 @@
+{% extends 'main/base.html' %}
+{% block title %} toCloud | Gerenciamento de tarefas {% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container mt-4">
+    {% if user.username == project.author %}
+        <form method="post">
+            {% csrf_token %}
+            <h4 class="d-flex justify-content-center">Adicionar task</h4>
+            <div class="bg-white d-flex justify-content-center align-items-center text-center">
+                <div class="pe-2">{{ form.task_name|as_crispy_field }}</div>
+                <div class="pe-2">{{ form.task_description|as_crispy_field }}</div>        
+                <div class="pe-2">{{ form.task_project.as_hidden }}</div>
+                <div class="pe-2 mb-3">
+                    <button type="submit" id="submitTask" name="submit_type" value="submitTask" class="btn btn-success">+</button>
+                </div>
+            </div>
+        </form>
+    {% endif %}
+</div>
+
+<div class="row mt-3">
+    {% for task in tasks %}  
+    <div class="col-md-3 mb-3">
+        <div class="card">
+            <form method="post">
+                {% csrf_token %}
+            <div class="card-body">
+                <h5 class="card-title">{{ task.task_name }}</h5>
+                <p class="card-text">{{ task.task_description }}</p>
+                {% if task.task_done == False %}
+                    <p> ❌ Tarefa não concluída</p>
+                {% else %}
+                    <p> ✔️ Tarefa concluída</p>
+                {% endif %}
+
+            </div> 
+            </form>
+
+
+            <div class="card-footer">
+                <form method="post" class="d-flex m-2 text-center justify-content-center">
+                    {% csrf_token %}
+                    <div class="m-2 d-flex">
+
+                        {% if project.author == user.username %}
+                            <button type="submit" class="btn btn-danger" name="task-name"
+                                value="{{ task.task_name }}">
+                                Deletar task
+                        {% endif %}
+                        {% if project.team in teams %}
+                            </button>
+                                <div class="m-2">
+                                    <a class="btn btn-secondary" href="/change-task/{{ task.task_project }}/{{ task.id }}">Alterar tarefa</a>
+                                </div>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-md-12">
+        <p>Não há tarefas no projeto</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
