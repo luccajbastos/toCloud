@@ -61,3 +61,11 @@ Utilizamos o AWS Backup para gerenciar centralmente os backups feitos e também,
 ### Criar conta
 
 ![1700074182743](image/README/1700074182743.png)
+
+# Fluxo de usuário não autênticado
+
+![1700076886118](image/README/1700076886118.png)
+
+# Fluxo do usuário autênticado
+
+![1700076910940](image/README/1700076910940.png)
