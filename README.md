@@ -69,3 +69,45 @@ Utilizamos o AWS Backup para gerenciar centralmente os backups feitos e também,
 # Fluxo do usuário autênticado
 
 ![1700076910940](image/README/1700076910940.png)
+
+
+# Como rodar?
+
+Foi utilizado Docker para conteinerizar o aplicativo.
+
+Utilizamos o Docker compose para subir dois containers:
+    - Container da aplicação
+    - Container do banco de dados
+
+1. Criar um arquivo com as variáveis de ambiente.
+
+   1. Criar um arquivo chamado **.env.prod**
+   2. Personalizar as variáveis de ambiente:
+    ```shell
+      DJANGO_SECRET_KEY=secret-django-key
+      DJANGO_DEBUG=False
+      POSTGRES_NAME=postgres
+      POSTGRES_USER=postgres
+      POSTGRES_PASSWORD=postgres
+      POSTGRES_HOST=tocloud-db
+      PORT=8000
+      ```
+
+      ![1700078049932](image/como-rodar/1700078049932.png)
+   4. Executar os containers
+
+      ```shell
+      docker-compose up --build
+      ```
+
+      ![1700078395577](image/como-rodar/1700078395577.png)
+   5. Verificar se os containers estão rodando:
+
+      ```shell
+      docker ps
+      ```
+
+      ![1700078452852](image/como-rodar/1700078452852.png)
+      ![1700078522619](image/como-rodar/1700078522619.png)
+
+Ele automáticamente vai subir todos os containers necessários.
